@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>parfum map. 香水地圖</title>
+  <meta name="description" content="香水地圖與香水圖書館：依品牌發源地瀏覽香水，查詢前中後調與感覺，找到相似味道。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+  <link rel="stylesheet" href="vendor/markercluster/MarkerCluster.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="cell logo" href="./">parfum map.</a>
+    <label class="cell search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search 香水、品牌、香料、感覺" autocomplete="off" />
+    </label>
+    <div class="cell count" id="count"></div>
+  </header>
+
+  <nav class="view-tabs" aria-label="切換檢視">
+    <button class="tab is-active" data-view="split">Map + Library</button>
+    <button class="tab" data-view="library">Library 圖書館</button>
+    <button class="tab" data-view="map">Map 地圖</button>
+  </nav>
+
+  <div class="ribbon">A library of scents, pinned to where they were born · 依發源地收藏的香水圖書館</div>
+
+  <main class="layout" data-view="split">
+    <section class="library" aria-label="香水圖書館">
+      <div class="filters">
+        <div class="toolbar">
+          <label class="cell select">
+            <small>Region 地區</small>
+            <select id="city"><option value="">全部</option></select>
+          </label>
+          <label class="cell select">
+            <small>Sort by 排序</small>
+            <select id="sort">
+              <option value="relevance">相關度</option>
+              <option value="name">名稱 A–Z</option>
+              <option value="year-desc">年份 新→舊</option>
+              <option value="year-asc">年份 舊→新</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="accordion">
+          <button class="acc-head" data-acc="families" aria-expanded="false"><span>Scent family 香調家族</span><i>+</i></button>
+          <div class="acc-body" id="acc-families" hidden><div id="families" class="chips"></div></div>
+
+          <button class="acc-head" data-acc="moods" aria-expanded="false"><span>Mood 感覺</span><i>+</i></button>
+          <div class="acc-body" id="acc-moods" hidden><div id="moods" class="chips"></div></div>
+
+          <button class="acc-head" data-acc="notes" aria-expanded="false"><span>Notes 包含香料</span><i>+</i></button>
+          <div class="acc-body" id="acc-notes" hidden>
+            <input id="note-input" class="note-input" list="note-list" placeholder="輸入香料後按 Enter，例如：玫瑰" />
+            <datalist id="note-list"></datalist>
+          </div>
+        </div>
+
+        <div id="active-bar" class="active-bar" hidden>
+          <div id="picked" class="chips"></div>
+          <button id="reset" class="text-btn">Clear all 清除</button>
+        </div>
+
+        <div id="similar-banner" class="similar-banner" hidden></div>
+      </div>
+
+      <div id="grid" class="grid" role="list"></div>
+    </section>
+
+    <section class="map-wrap" aria-label="香水地圖">
+      <div id="map"></div>
+      <div class="legend" id="legend"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="cell"><h4>Parfum map.</h4><p>香水地圖・香水圖書館</p></div>
+    <div class="cell"><h4>Data</h4><p>香調為公開資訊整理之參考值</p></div>
+    <div class="cell"><button class="text-btn" id="to-top">↑ Back to top</button></div>
+  </footer>
+
+  <div id="detail" class="detail" hidden>
+    <div class="detail-backdrop" data-close></div>
+    <article class="detail-panel" role="dialog" aria-modal="true" aria-labelledby="d-name">
+      <div class="panel-head"><span>Scent profile</span><button class="close" data-close aria-label="關閉">Close ✕</button></div>
+      <div id="detail-body"></div>
+    </article>
+  </div>
+
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="vendor/markercluster/leaflet.markercluster.js"></script>
+  <script src="data/perfumes.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
