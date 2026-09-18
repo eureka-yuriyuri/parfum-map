@@ -63,7 +63,7 @@
   }
 
   // ---------- 狀態 ----------
-  const state = { q: "", city: "", sort: "relevance", families: new Set(), moods: new Set(), notes: new Set(), similarId: null, activeId: null };
+  const state = { q: "", city: "", gender: "", sort: "relevance", families: new Set(), moods: new Set(), notes: new Set(), similarId: null, activeId: null };
 
   function textScore(p, q) {
     if (!q) return 1;
@@ -74,6 +74,7 @@
       if ((p.name + " " + p.brand).toLowerCase().includes(t)) hit = 3;
       else if (p._notes.some((n) => n.includes(t))) hit = 2;
       else if (p.moods.some((m) => m.includes(t)) || p.family.includes(t)) hit = 2;
+      else if (p.gender === t) hit = 2;
       else if ((p.perfumer + " " + p.description + " " + cityOf(p).name + cityOf(p).country + (cityOf(p).continent || "")).toLowerCase().includes(t)) hit = 1;
       if (!hit) return 0;
       score += hit;
@@ -87,6 +88,7 @@
       .filter(({ p, t }) =>
         t > 0 &&
         (!base || p.id !== base.id) &&
+        (!state.gender || p.gender === state.gender) &&
         (!state.city || (state.city.startsWith("c:") ? cityOf(p).continent === state.city.slice(2) : p.city === state.city)) &&
         (!state.families.size || state.families.has(p.family)) &&
         [...state.moods].every((m) => p.moods.includes(m)) &&
@@ -140,7 +142,7 @@
       ...[...state.notes].map((v) => `<button class="chip is-on" data-rm-note="${esc(v)}">${esc(v)} ✕</button>`)
     ];
     $("#picked").innerHTML = picked.join("");
-    const hasAny = state.q || state.city || picked.length;
+    const hasAny = state.q || state.city || state.gender || picked.length;
     $("#active-bar").hidden = !hasAny;
     [["families", state.families.size], ["moods", state.moods.size], ["notes", state.notes.size]].forEach(([k, n]) => {
       const span = document.querySelector(`[data-acc="${k}"] span`);
@@ -168,6 +170,7 @@
           <span class="name">${esc(p.name)}</span>
           <span class="notes">Notes: ${p._notes.slice(0, 4).map(esc).join("、")}</span>
           <span class="fam">${esc(p.family)} &amp; ${esc(p.moods[0] || "")}</span>
+          <span class="notes">${esc(p.gender || "")}</span>
           <span class="more">${esc(cityOf(p).name)} · See notes ›</span>
         </div>
       </button>`).join("")
@@ -198,6 +201,7 @@
       </div>
       <div class="d-facts">
         <div><small>Family 香調家族</small>${esc(p.family)}</div>
+        <div><small>Gender 性別</small>${esc(p.gender || "—")}</div>
         <div><small>Origin 發源地</small>${esc(c.name)}・${esc(c.country)}</div>
         <div><small>Year 年份</small>${esc(p.year)}</div>
         <div><small>Perfumer 調香師</small>${esc(p.perfumer)}</div>
@@ -283,6 +287,7 @@
   let qTimer;
   $("#q").addEventListener("input", (e) => { clearTimeout(qTimer); qTimer = setTimeout(() => { state.q = e.target.value.trim(); render(); }, 150); });
   $("#city").addEventListener("change", (e) => { state.city = e.target.value; render(); });
+  $("#gender").addEventListener("change", (e) => { state.gender = e.target.value; render(); });
   $("#sort").addEventListener("change", (e) => { state.sort = e.target.value; render(); });
   document.querySelectorAll("[data-acc]").forEach((h) => h.addEventListener("click", () => {
     const body = $("#acc-" + h.dataset.acc); body.hidden = !body.hidden; h.setAttribute("aria-expanded", String(!body.hidden));
@@ -298,9 +303,9 @@
     if (v && PERFUMES.some((p) => p._notes.includes(v))) { state.notes.add(v); e.target.value = ""; render(); }
   });
   $("#reset").addEventListener("click", () => {
-    Object.assign(state, { q: "", city: "", similarId: null });
+    Object.assign(state, { q: "", city: "", gender: "", similarId: null });
     state.families.clear(); state.moods.clear(); state.notes.clear();
-    $("#q").value = ""; $("#city").value = ""; render();
+    $("#q").value = ""; $("#city").value = ""; $("#gender").value = ""; render();
   });
 
   document.querySelectorAll(".tab").forEach((t) => t.addEventListener("click", () => {
