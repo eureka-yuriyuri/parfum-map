@@ -6,6 +6,8 @@
  *  - image  ：香水外觀圖片（本機 images/<id>.jpg 或網址；留空會顯示示意瓶身）
  *    目前圖片取自 Fragrantica（fimgs.net），僅供本機對照；公開上線前請換成有授權的圖片。
  *  - gender ：男香／女香／中性（依 Fragrantica 定位與一般認知）
+ *  - source ：香調資料來源（Fragrantica／官網）
+ *  - notesFlat：true 表示來源只提供整體香料、未分前中後調，詳細頁會顯示成一列
  *  - family ：主香調家族，需為 FAMILIES 內的其中一個
  *  - moods  ：感覺形容詞，建議沿用既有詞彙，篩選才會集中
  * 前中後調為公開資訊整理的參考值，不同年份／濃度版本可能略有差異。
@@ -26,6 +28,7 @@ window.CITIES = {
   istanbul:  { name: "伊斯坦堡", country: "土耳其", continent: "歐洲", lat: 41.0082, lng: 28.9784 },
   muscat:    { name: "馬斯開特", country: "阿曼", continent: "亞洲",   lat: 23.5859, lng: 58.4059 },
   dubai:     { name: "杜拜",     country: "阿聯", continent: "亞洲",   lat: 25.2048, lng: 55.2708 },
+  bangkok:   { name: "曼谷",     country: "泰國", continent: "亞洲",   lat: 13.7563, lng: 100.5018 },
   melbourne: { name: "墨爾本",   country: "澳洲", continent: "大洋洲",   lat: -37.8136, lng: 144.9631 }
 };
 
@@ -532,5 +535,145 @@ window.PERFUMES = [
     notes: { top: ["粉紅胡椒", "橙花", "檸檬"], middle: ["蘭姆酒", "爪哇岩蘭草", "快樂鼠尾草"], base: ["菸草葉", "香草", "蘇合香"] },
     moods: ["溫暖", "煙燻", "沉穩", "慵懶"],
     description: "威士忌、菸草與香草，像深夜爵士酒吧的吧台。"
+  },
+  {
+    id: "prin-nocturnal-poetry", name: "Nocturnal Poetry", brand: "Prin", year: 2020, perfumer: "Prin Lomros",
+    family: "琥珀東方調", city: "bangkok", gender: "中性", image: "images/prin-nocturnal-poetry.jpg", source: "Fragrantica", notesFlat: true,
+    notes: { top: [], middle: ["麝貓香", "海狸香", "茉莉", "蜂蠟", "皮革", "孜然", "沉香", "黃玉蘭", "大馬士革玫瑰", "沒藥", "菸草", "乾草", "乳香", "咖啡"], base: [] },
+    moods: ["神秘", "濃郁", "煙燻", "沉穩"],
+    description: "動物感與皮革、咖啡交織的夜之詩，泰國沙龍香代表作。"
+  },
+  {
+    id: "prin-mriga", name: "Mriga", brand: "Prin", year: 2020, perfumer: "Prin Lomros",
+    family: "綠意調", city: "bangkok", gender: "中性", image: "images/prin-mriga.jpg", source: "Fragrantica", notesFlat: true,
+    notes: { top: [], middle: ["麝香", "冷杉香脂", "黑雲杉", "泥煤", "橡苔", "萊姆", "青草", "苦艾", "香附", "茉莉", "岩玫瑰", "岩蘭草", "沉香", "檀香"], base: [] },
+    moods: ["自然", "木質感", "神秘", "煙燻"],
+    description: "潮濕森林的泥煤與針葉樹，像雨後踩進苔蘚地。"
+  },
+  {
+    id: "prin-mandodari", name: "Mandodari", brand: "Prin", year: 2020, perfumer: "Prin Lomros",
+    family: "花香調", city: "bangkok", gender: "中性", image: "images/prin-mandodari.jpg", source: "Fragrantica", notesFlat: true,
+    notes: { top: [], middle: ["醛", "麝貓香", "黃玉蘭", "緬梔花", "咖啡", "晚香玉", "梔子花", "灰燼", "孜然", "橡苔", "菸草", "檀香", "柚木", "黑胡椒"], base: [] },
+    moods: ["濃郁", "性感", "神秘", "奢華"],
+    description: "熱帶白花混著灰燼與咖啡，濃烈而戲劇化。"
+  },
+  {
+    id: "prin-saringkarn", name: "Saringkarn (ศฤงคาร)", brand: "Prin", year: 2020, perfumer: "Prin Lomros",
+    family: "琥珀東方調", city: "bangkok", gender: "中性", image: "images/prin-saringkarn.jpg", source: "Fragrantica", notesFlat: true,
+    notes: { top: [], middle: ["大馬士革玫瑰", "五月玫瑰", "泰國沉香", "黃玉蘭", "煙燻", "李子", "番紅花", "蜂蠟", "焚香", "黑巧克力", "皮革", "菸草"], base: [] },
+    moods: ["奢華", "神秘", "溫暖", "煙燻"],
+    description: "玫瑰與泰國沉香的華麗煙燻，帶著黑巧克力的甜。"
+  },
+  {
+    id: "prissana-ayutthaya", name: "Ayutthaya (อยุธยา)", brand: "Prissana", year: 2022, perfumer: "Prin Lomros",
+    family: "木質調", city: "bangkok", gender: "中性", image: "images/prissana-ayutthaya.jpg", source: "Fragrantica", notesFlat: true,
+    notes: { top: [], middle: ["樟腦", "醛", "蘇合香", "焚香", "火藥", "沒藥", "肉豆蔻", "芫荽", "廣藿香", "紅茶", "柚木", "莎草紙", "橡苔", "岩蘭草"], base: [] },
+    moods: ["神秘", "煙燻", "沉穩", "辛辣"],
+    description: "以大城王朝為題的焚香與柚木，像古寺裡的香灰。"
+  },
+  {
+    id: "prissana-nefer", name: "Nefer", brand: "Prissana", year: 2020, perfumer: "Prin Lomros",
+    family: "琥珀東方調", city: "bangkok", gender: "中性", image: "images/prissana-nefer.jpg", source: "Fragrantica", notesFlat: true,
+    notes: { top: [], middle: ["焚香", "沒藥", "肉桂", "果乾", "番紅花", "欖香脂", "柑橘", "小豆蔻", "安息香", "癒創木", "琥珀", "檀香"], base: [] },
+    moods: ["神秘", "溫暖", "辛辣", "奢華"],
+    description: "古埃及風格的樹脂與辛香料，溫暖而莊嚴。"
+  },
+  {
+    id: "prissana-dunhuang", name: "Dunhuang (敦煌)", brand: "Prissana", year: 2022, perfumer: "Prin Lomros",
+    family: "木質調", city: "bangkok", gender: "中性", image: "images/prissana-dunhuang.jpg", source: "Fragrantica", notesFlat: true,
+    notes: { top: [], middle: ["茉莉花茶", "正山小種", "茉莉", "桂花", "焚香", "金桔", "李子", "琥珀", "薑", "丁香", "肉桂", "檀香", "廣藿香"], base: [] },
+    moods: ["神秘", "療癒", "沉穩", "辛辣"],
+    description: "敦煌石窟的茶煙與辛香，東方感十足。"
+  },
+  {
+    id: "pryn-aranyaka", name: "Aranyaka", brand: "Pryn Parfum", year: 2018, perfumer: "Pran Rattanapan",
+    family: "琥珀東方調", city: "bangkok", gender: "中性", image: "images/pryn-aranyaka.jpg", source: "Fragrantica", notesFlat: true,
+    notes: { top: [], middle: ["海狸香", "土壤酊", "麝貓香", "香附", "絲柏", "乳香", "皮革", "蜂蠟", "橡苔", "薰衣草", "丁香", "番紅花"], base: [] },
+    moods: ["神秘", "煙燻", "濃郁", "沉穩"],
+    description: "森林苦行者的氣息，土壤、皮革與樹脂。"
+  },
+  {
+    id: "pryn-turkish-leather", name: "Turkish Leather", brand: "Pryn Parfum", year: 2016, perfumer: "Pran Rattanapan",
+    family: "琥珀東方調", city: "bangkok", gender: "中性", image: "images/pryn-turkish-leather.jpg", source: "Fragrantica", notesFlat: true,
+    notes: { top: [], middle: ["拉克酒", "土耳其軟糖", "椰棗", "麂皮", "皮革", "可可", "焚香", "多香果", "沉香", "岩玫瑰", "龍涎香"], base: [] },
+    moods: ["奢華", "甜美", "煙燻", "溫暖"],
+    description: "土耳其軟糖的甜與皮革煙燻，像伊斯坦堡的市集。"
+  },
+  {
+    id: "strangers-cigar-rum", name: "Cigar Rum", brand: "Strangers Parfumerie", year: 2017, perfumer: "Prin Lomros",
+    family: "美食調", city: "bangkok", gender: "中性", image: "images/strangers-cigar-rum.jpg", source: "Fragrantica", notesFlat: true,
+    notes: { top: [], middle: ["蘭姆酒", "菸草", "果乾", "葡萄乾", "樹脂", "橡木", "琥珀", "岩玫瑰", "岩蘭草", "海藻", "柑橘"], base: [] },
+    moods: ["溫暖", "煙燻", "慵懶", "沉穩"],
+    description: "蘭姆酒與雪茄，泰國品牌裡討論度最高的一支。"
+  },
+  {
+    id: "strangers-caffeine-honey", name: "Caffeine Honey", brand: "Strangers Parfumerie", year: 2021, perfumer: "Prin Lomros",
+    family: "美食調", city: "bangkok", gender: "中性", image: "images/strangers-caffeine-honey.jpg", source: "Fragrantica", notesFlat: true,
+    notes: { top: [], middle: ["烘焙咖啡豆", "蜂蜜", "香草", "爆米花", "菸草", "干邑", "龍涎香醚", "琥珀木", "廣藿香", "杏仁", "乾草", "麝香"], base: [] },
+    moods: ["甜美", "溫暖", "療癒", "慵懶"],
+    description: "剛烘好的咖啡豆淋上蜂蜜，甜而不膩。"
+  },
+  {
+    id: "panpuri-one-night-bangkok", name: "One Night In Bangkok", brand: "Pañpuri", year: 2023, perfumer: "—",
+    family: "花香調", city: "bangkok", gender: "中性", image: "images/panpuri-one-night-bangkok.jpg", source: "Fragrantica",
+    notes: { top: ["尤加利", "佛手柑"], middle: ["晚香玉", "依蘭", "小花茉莉", "橙花"], base: ["黑胡椒", "丁香", "檀香", "零陵香豆"] },
+    moods: ["性感", "濃郁", "花香感", "溫暖"],
+    description: "曼谷夜裡的白花與辛香，熱帶的濕熱空氣。"
+  },
+  {
+    id: "panpuri-memoria-mimosa", name: "Memoria Mimosa", brand: "Pañpuri", year: 2023, perfumer: "—",
+    family: "花香調", city: "bangkok", gender: "中性", image: "images/panpuri-memoria-mimosa.jpg", source: "Fragrantica",
+    notes: { top: ["小豆蔻", "橙花"], middle: ["含羞草"], base: ["香草原精", "零陵香豆"] },
+    moods: ["溫柔", "粉感", "甜美", "療癒"],
+    description: "含羞草的粉感甜香，泰式 spa 品牌的柔軟版本。"
+  },
+  {
+    id: "butterfly-jasmine-garland", name: "Jasmine Garland", brand: "Butterfly Thai Perfume", year: 2023, perfumer: "—",
+    family: "花香調", city: "bangkok", gender: "中性", image: "images/butterfly-jasmine-garland.jpg", source: "Fragrantica",
+    notes: { top: ["綠葉", "橙花", "甜橙", "露珠"], middle: ["茉莉", "黃玉蘭", "玫瑰", "香蕉葉"], base: ["沉香", "安息香", "番紅花"] },
+    moods: ["花香感", "療癒", "優雅", "自然"],
+    description: "泰式茉莉花環，寺廟與市集裡最熟悉的香氣。"
+  },
+  {
+    id: "erb-crimson-chromatic", name: "Crimson Chromatic", brand: "Erb", year: 2025, perfumer: "—",
+    family: "琥珀東方調", city: "bangkok", gender: "中性", image: "images/erb-crimson-chromatic.jpg", source: "Fragrantica", notesFlat: true,
+    notes: { top: [], middle: ["小豆蔻", "櫻桃", "沉香", "番紅花"], base: [] },
+    moods: ["神秘", "果香感", "奢華", "溫暖"],
+    description: "櫻桃與沉香的紅色調，泰國草本品牌的香水線。"
+  },
+  {
+    id: "copenn-umbre", name: "Umbre", brand: "COPENN", year: 2023, perfumer: "—",
+    family: "木質調", city: "bangkok", gender: "中性", image: "", source: "官網", notesFlat: true,
+    notes: { top: [], middle: ["岩蘭草", "乾草", "零陵香豆", "蘭姆酒"], base: [] },
+    moods: ["沉穩", "溫暖", "自然", "中性"],
+    description: "甜潤木質與青草乾草，COPENN 的招牌之一。"
+  },
+  {
+    id: "copenn-dimorfig", name: "Dimorfig", brand: "COPENN", year: 2023, perfumer: "—",
+    family: "綠意調", city: "bangkok", gender: "中性", image: "", source: "官網", notesFlat: true,
+    notes: { top: [], middle: ["無花果", "漿果", "番茄葉", "伯爵茶"], base: [] },
+    moods: ["清新", "自然", "果香感", "療癒"],
+    description: "無花果與番茄葉的青綠果香，配上伯爵茶。"
+  },
+  {
+    id: "copenn-burning-cabinet", name: "Burning Cabinet", brand: "COPENN", year: 2023, perfumer: "—",
+    family: "木質調", city: "bangkok", gender: "中性", image: "", source: "官網", notesFlat: true,
+    notes: { top: [], middle: ["苦橙葉", "檀香", "雪松", "快樂鼠尾草"], base: [] },
+    moods: ["木質感", "沉穩", "乾淨", "中性"],
+    description: "檀香與雪松的乾燥木櫃氣息。"
+  },
+  {
+    id: "copenn-fog-house", name: "The Fog House", brand: "COPENN", year: 2023, perfumer: "—",
+    family: "花香調", city: "bangkok", gender: "中性", image: "", source: "官網", notesFlat: true,
+    notes: { top: [], middle: ["百合", "藍鈴花", "含羞草", "大馬士革玫瑰", "廣藿香"], base: [] },
+    moods: ["粉感", "溫柔", "花香感", "優雅"],
+    description: "霧氣中的白色花園，柔軟帶粉感。"
+  },
+  {
+    id: "copenn-after-burnt", name: "After Burnt", brand: "COPENN", year: 2023, perfumer: "—",
+    family: "木質調", city: "bangkok", gender: "中性", image: "", source: "官網", notesFlat: true,
+    notes: { top: [], middle: ["岩蘭草", "橡苔", "琥珀", "廣藿香"], base: [] },
+    moods: ["煙燻", "沉穩", "木質感", "溫暖"],
+    description: "燃燒之後的木頭與苔蘚，煙燻餘韻。"
   }
 ];

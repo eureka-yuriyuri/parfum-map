@@ -186,10 +186,16 @@
     state.activeId = id;
     const c = cityOf(p);
     const sims = similarTo(p, 5);
-    const pyramid = TIERS.map(([k, label, hint]) => `
+    const noteChips = (arr) => arr.map((n) => `<button class="note-chip" data-find-note="${esc(n)}" title="找含有「${esc(n)}」的香水">${esc(n)}</button>`).join("");
+    const pyramid = p.notesFlat
+      ? `<div class="tier">
+          <b>香料<small>來源未分前中後調</small></b>
+          <div class="chips">${noteChips(p._notes)}</div>
+        </div>`
+      : TIERS.map(([k, label, hint]) => `
       <div class="tier">
         <b>${label}<small>${hint}</small></b>
-        <div class="chips">${p.notes[k].map((n) => `<button class="note-chip" data-find-note="${esc(n)}" title="找含有「${esc(n)}」的香水">${esc(n)}</button>`).join("")}</div>
+        <div class="chips">${noteChips(p.notes[k])}</div>
       </div>`).join("");
 
     $("#detail-body").innerHTML = `
@@ -205,12 +211,13 @@
         <div><small>Origin 發源地</small>${esc(c.name)}・${esc(c.country)}</div>
         <div><small>Year 年份</small>${esc(p.year)}</div>
         <div><small>Perfumer 調香師</small>${esc(p.perfumer)}</div>
+        ${p.source ? `<div style="grid-column:1/-1;border-right:0"><small>Source 香調資料來源</small>${esc(p.source)}</div>` : ""}
       </div>
 
       <div class="d-section-title">Mood 感覺</div>
       <div class="d-block"><div class="chips" style="justify-content:center">${p.moods.map((m) => `<button class="chip" data-find-mood="${esc(m)}">${esc(m)}</button>`).join("")}</div></div>
 
-      <div class="d-section-title">Notes 香調金字塔</div>
+      <div class="d-section-title">Notes ${p.notesFlat ? "香料" : "香調金字塔"}</div>
       ${pyramid}
 
       <div class="d-section-title">Similar scents 相似味道</div>
